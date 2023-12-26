@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Students</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <li><b>{{ message }}</li></b>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+{% block body %}{% endblock %}
+<body>
+    <form method="POST" action="{{url_for('search')}}">
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav ml-auto search ">
+            <input type="search" placeholder="search for item" name="search">
+            <button class="btn btn-success" >search</button>
+        </div>
+      </div>
+      </form>
+      <button><a href="{{url_for('admindashboard')}}">BACK</a></button>
+    <table>
+        <tr>
+            <th>Roll No</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Phone Number</th>
+            <th>Father Name</th>
+            <th>Mother Name</th>
+            <th>Email</th>
+            <th>Branch</th>
+            <th>Year</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        {% for i in data %}
+        <tr>
+            <td>{{ i[0] }}</td>
+            <td>{{ i[1] }}</td>
+            <td>{{ i[2] }}</td>
+            <td>{{ i[3] }}</td>
+            <td>{{ i[4] }}</td>
+            <td>{{ i[5] }}</td>
+            <td>{{ i[6] }}</td>
+            <td>{{ i[7] }}</td>
+            <td>{{ i[8] }}</td>
+            <td><a href="{{url_for('updatestudents',rollno=i[0])}}"> update</a></td>
+            <td><a href="{{url_for('deletestudents',rollno=i[0])}}">delete</a></td>
+
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

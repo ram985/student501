@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mark Attendance</title>
+    <style>
+        body {
+            background-color: #cef3f3;
+        }
+        
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .card {
+            display: flex; /* Add display flex to create a horizontal layout */
+            max-width: 800px; /* Adjust the max-width as needed */
+            padding: 20px;
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            background-color: rgba(255, 237, 237, 0.8);
+            backdrop-filter: blur(8px);
+        }
+        
+        .card img {
+            width: 50%; /* Set the width of the image to occupy half of the card */
+            border-radius: 8px;
+            margin-right: 20px; /* Add spacing between the image and form */
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Align the form content to the left */
+        }
+        
+        form label {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        form input {
+            padding: 8px;
+            margin-bottom: 10px;
+            width: 250px;
+            border: 2px solid #b3b000;
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            background-color: #b3b000;
+            border: none;
+            color: #1b1a1a;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            filter: brightness(1);
+        }
+        
+        button:hover {
+            background-color: #9a9a00;
+            transform: scale(1.05);
+            filter: brightness(1.2);
+        }
+        
+        a {
+            text-decoration: none;
+            color: #6d3a3a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <img src="https://media.istockphoto.com/id/1351249861/vector/office-software-attendance-management-business-concept-infographics-for-web-banner-calendar.jpg?s=612x612&w=0&k=20&c=z9PgaX2Z1ArGDXZmwLkxWCxI8LAgd109trO85bB9aLI=" alt="Background Image">
+            <form action="{{url_for('attendence')}}" method="POST">
+                <label for="student_id">Student ID:</label>
+                <input type="text" id="student_id" name="student_id" required><br><br>
+                
+                <label for="attendance_date">Attendance Date:</label>
+                <input type="date" id="attendance_date" name="attendance_date" required><br><br>
+                
+                <label for="check_in_time">Check-in Time:</label>
+                <input type="time" id="check_in_time" name="check_in_time" required><br><br>
+                <label for="class">Subject:</label>
+                
+                <select name="class">
+                    {% for i in data %}
+                    <option>{{i[0]}}</option>
+                    {% endfor %}
+                </select>
+                
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

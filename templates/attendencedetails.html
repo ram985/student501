@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        .update-form {
+            display: inline-block;
+        }
+    </style>
+</head>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <center><b>{{ message }}</b></center>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+<body>
+    <h1>Attendance</h1>
+    <button><a href="{{url_for('admindashboard')}}">BACK</a></button>
+    <form method="POST" action="{{url_for('searcha')}}">
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav ml-auto search ">
+            <input type="search" placeholder="search for particular student" name="search">
+            <button class="btn btn-success" >search</button>
+        </div>
+      </div>
+      </form>
+<label>total days</label>
+        {% if total!=None %}
+        {{total}}
+        <form  action="{{url_for('totaldays')}}"method="POST">
+            
+            <input type="number" name="total" >
+            <button>update the total days</button>
+        </form>
+        {% else %}
+        <form  action="{{url_for('totaldays')}}"method="POST">
+            <input type="number" name="total">
+            <button>submit</button>
+        </form>
+        {% endif %}
+ 
+    <table>
+        <tr>
+            <th>Student ID</th>
+         
+            <th>Attendance Date</th>
+            <th>Check-in Time</th>
+            <th>Check-out Time</th>
+            <th>Attendance Percentage</th>
+        </tr>
+        
+        {% for record in attendance_records %}
+        <tr>
+            <td>{{ record[0] }}</td>
+            <td>{{ record[1] }}</td>
+            <td>{{ record[2] }}</td>
+           
+            <td>
+                {% if record[3] != None  %}
+                    {{ record[3] }}
+                {% else %}
+                    <form class="update-form" action="{{ url_for('update_checkout') }}" method="POST">
+                        <input type="hidden" name="attendance_id" value="{{ record[0] }}">
+                        <input type="time" name="checkout">
+                        <button type="submit">Update</button>
+                    </form>
+                {% endif %}
+            </td>
+           <td>{{ record[4] }}<button><a href="{{url_for('calculate_percentage',rollno=record[0])}}">update percentage</a></button></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

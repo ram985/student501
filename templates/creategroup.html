@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Create Group</title>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='/check-in-page.css') }}">
+    <style>
+        /* Card style */
+        .card {
+            background-color: #f2f2f2;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Hover effect for input fields in the card */
+        .card input:hover {
+            background-color: #e5e5e5;
+        }
+        
+        /* Hover effect for the table */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        table th,
+        table td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        table tr:hover {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="btn-custom"><a href="{{url_for('admindashboard')}}">BACK</a></button>
+
+    <div class="card">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class="flashes">
+            {% for message in messages %}
+            <center><b>{{ message }}</b></center>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        <form method="POST" action="{{ url_for('creategroup') }}">
+            <input type="text" name="group" placeholder="Create Paper" class="hover-effect">
+            <button>Submit</button>
+        </form>
+
+        <!-- HTML form for CRUD operation -->
+        <form method="POST" action="{{ url_for('movetostudents') }}">
+            <div>
+                <label for="empCode">Student Roll No</label>
+                <select name="sname" class="hover-effect">
+                    {% for i in data %}
+                    <option>{{ i[0] }}</option>
+                    {% endfor %}
+                </select>
+                <label for="empCode">Paper Details</label>
+                <select name="sgroup" class="hover-effect">
+                    {% for i in group %}
+                    <option>{{ i[0] }}</option>
+                    {% endfor %}
+                </select>
+                <button>Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <table>
+        <tr>
+            <th>Student Group</th>
+            <th>Group Added By</th>
+            <th>Group Added Date</th>
+        </tr>
+        {% for i in sdata %}
+        <tr>
+            <td>{{ i[0] }}</td>
+            <td>{{ i[1] }}</td>
+            <td>{{ i[2] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+
+</html>

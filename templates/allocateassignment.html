@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>allocate assignment</title>
+</head>
+<body>
+    <button><a href="{{url_for('admindashboard')}}">BACK</a></button>
+    <form method="POST">
+        <label>rollno</label>
+        <select name="rollno">
+            {% for i in rollno%}
+            <option>{{i[0]}}</option>
+            {% endfor %}
+        </select>
+        <input type="text" name="name">
+        <button>submit</button>
+    </form>
+    <table>
+        <table class="list" id="employeeList">
+            <thead>
+                <tr>
+                    <th>ROLLNO</th>
+                    <th>Subject name</th>
+                    <th>Allocate assignment</th>
+                    <th>Assignment view</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Marks</th>
+                    <th>delete assignment</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for i in data %}
+                    <tr>
+                        <td>{{ i[1] }}</td>
+                       <td>{{ i[7]}}</td>
+                        <td>{{ i[2] }}</td>
+                        {% if i[3] == None %}
+                        <td>Assignment not updated</td>
+                        {% else %}
+                        <td><a href="{{url_for('assignmentview',id1=i[0])}}" class="btn-custom">view file</a></td>
+                         {% endif %}
+                        
+                        {% if i[4] == None %}
+                            <td><a href="{{ url_for('updateassignment', id1=i[0]) }}" class="btn-custom">Update Status</a></td>
+                            {% else %}
+                            <td>{{ i[4] }}</td>
+                            {% endif %}
+                            {% if i[4]== 'reject' %}
+                            <td>The assignment rejected</td>
+                            {% else %}
+                            <td>{{ i[5] }}</td>
+                            {% endif %}
+                            <td>{{ i[6] }}</td>
+                            <td><a href="{{url_for('deleteassignment',id1=i[0])}}">delete assignment</a></td>
+                    </tr>
+                    
+                    
+                {% endfor %}
+                    
+                
+
+                  
+                
+            </tbody>
+        </table>
+    </table>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Students</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #847c7c63;
+        }
+
+        .student-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #461515;
+            border-radius: 4px;
+        }
+
+        .student-container h2 {
+            margin-bottom: 20px;
+        }
+
+        .student-info {
+            margin-bottom: 10px;
+        }
+
+        .student-info label {
+            font-weight: bold;
+        }
+
+        .student-info span {
+            margin-left: 10px;
+        }
+
+        .image-container {
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <button class="btn-custom"><a href="{{url_for('studentsdashboard')}}">BACK</a></button>
+
+    <div class="student-container">
+        <h2>YOUR PERSONAL INFO</h2>
+
+        {% for student in data %}
+        <div class="student-info">
+            <label>Roll No:</label>
+            <span>{{ student[0] }}</span>
+        </div>
+        <div class="student-info">
+            <label>First Name:</label>
+            <span>{{ student[1] }}</span>
+        </div>
+        <div class="student-info">
+            <label>Last Name:</label>
+            <span>{{ student[2] }}</span>
+        </div>
+        <div class="student-info">
+            <label>Phone Number:</label>
+            <span>{{ student[3] }}</span>
+        </div>
+        <div class="student-info">
+            <label>Father Name:</label>
+            <span>{{ student[4] }}</span>
+        </div>
+        <div class="student-info">
+            <label>Mother Name:</label>
+            <span>{{ student[5] }}</span>
+        </div>
+        <div class="student-info">
+            <label>Email:</label>
+            <span>{{ student[6] }}</span>
+        </div>
+        <div class="student-info">
+            <label>Branch:</label>
+            <span>{{ student[7] }}</span>
+        </div>
+        <div class="student-info">
+            <label>Year:</label>
+            <span>{{ student[8] }}</span>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

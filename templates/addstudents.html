@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Students</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url('https://img.freepik.com/premium-photo/school-classroom-blur-background-without-young-student-blurry-view-elementary-class-room-no-k_762118-228.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .container {
+            max-width: 500px;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <center><b style="color:aliceblue">{{ message }}</b></center>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4">Add Students</h1>
+        <button><a href="{{url_for('admindashboard')}}">BACK</a></button>
+        <form method="POST">
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="rollno" class="form-label">Enter Student Roll Number</label>
+                    <input type="number" class="form-control" id="rollno" placeholder="Enter Student Roll Number" name="rollno">
+                </div>
+                <div class="col">
+                    <label for="fname" class="form-label">Enter Student First Name</label>
+                    <input type="text" class="form-control" id="fname" placeholder="Enter Student First Name" name="fname">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="lname" class="form-label">Enter Student Last Name</label>
+                    <input type="text" class="form-control" id="lname" placeholder="Enter Student Last Name" name="lname">
+                </div>
+                <div class="col">
+                    <label for="phnumber" class="form-label">Enter Student Phone Number</label>
+                    <input type="number" class="form-control" id="phnumber" placeholder="Enter Student Phone Number" name="phnumber">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="fathername" class="form-label">Enter Student Father's Name</label>
+                    <input type="text" class="form-control" id="fathername" placeholder="Enter Student Father's Name" name="fathername">
+                </div>
+                <div class="col">
+                    <label for="mothername" class="form-label">Enter Student Mother's Name</label>
+                    <input type="text" class="form-control" id="mothername" placeholder="Enter Student Mother's Name" name="mothername">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="email" class="form-label">Enter Student Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter Student Email" name="email">
+                </div>
+                <div class="col">
+                    <label for="branch" class="form-label">Enter Student Branch</label>
+                    <select class="form-control" id="branch" name="branch">
+                        <option>BCA</option>
+                        <option>BSC</option>
+                        <option>MPCS</option>
+                        <option>MSCS</option>
+                        <option>BBA</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="year" class="form-label">Enter Student Year</label>
+                    <input type="text" class="form-control" id="year" placeholder="Enter Student Year" name="year">
+                </div>
+            </div>
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HOSTEL MANAGEMENT SYSTEM</title>
+    <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='/check-in-page.css')}}">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th,
+        table td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #f2f2f2;
+        }
+
+        table tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .btn-custom {
+            padding: 5px 10px;
+            font-size: 12px;
+            border-radius: 3px;
+            background-color: transparent;
+            color: #0e0e0e;
+            border: none;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn-custom:hover {
+            background-color: #b3b000;
+            transform: scale(1.05);
+            color: #1b1a1a;
+        }
+
+        .btn-custom a {
+            text-decoration: none;
+            color: #f6ebeb;
+        }
+    </style>
+</head>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class="flashes">
+    {% for message in messages %}
+      <center><b>{{message}}</b></center>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<body>
+    <button><a href="{{url_for('admindashboard')}}">BACK</a></button>
+    <table>
+        <table class="list" id="employeeList">
+            <thead>
+                <tr>
+                    <th>ROLLNO</th>
+                    <th>Subject name</th>
+                    <th>Allocate assignment</th>
+                    <th>Assignment view</th>
+                    <th>Status</th>
+                    <th>Marks</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for i in data %}
+                    <tr>
+                        <td>{{ i[0] }}</td>
+                       <td>{{ i[1] }}</td>
+                        <td>{{ i[2] }}</td>
+                        {% if i[3] == None %}
+                        <td>Assignment not updated</td>
+                        {% else %}
+                        <td><a href="{{url_for('assignmentview',id1=i[0])}}" class="btn-custom">view file</a></td>
+                         {% endif %}
+                        
+                        {% if i[4] == None %}
+                            <td><a href="{{ url_for('updateassignment', id1=i[0]) }}" class="btn-custom">Update Status</a></td>
+                            {% else %}
+                            <td>{{ i[4] }}</td>
+                            {% endif %}
+                            {% if i[4]== 'reject' %}
+                            <td>The assignment rejected</td>
+                            {% else %}
+                            <td>{{ i[5] }}</td>
+                            {% endif %}
+                            <td>{{ i[6] }}</td>
+                            <td><a href="{{url_for('deleteassignment',rollno=i[0])}}">delete assignment</a></td>
+                    </tr>
+                    
+                    
+                {% endfor %}
+                    
+                
+
+                  
+                
+            </tbody>
+        </table>
+    </table>
+</body>
+
+</html>

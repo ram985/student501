@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment Data</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url('your-background-image.jpg');
+            background-size: cover;
+            background-position: center;
+            background-color: #f4f4f4;
+        }
+
+        .assignment-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            margin-top: 50px;
+        }
+
+        .assignment-container h3 {
+            text-align: center;
+            color: #0c0c0c;
+            margin-bottom: 20px;
+        }
+
+        .assignment-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #fff;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .assignment-item:hover {
+            background-color: #f2f2f2;
+        }
+
+        .assignment-item a {
+            color: #000;
+            text-decoration: none;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .assignment-item a:hover {
+            color: #b3b000;
+        }
+    </style>
+</head>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <li><b>{{ message }}</li></b>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+{% block body %}{% endblock %}
+<body>
+    <button class="btn-custom"><a href="{{url_for('studentsdashboard')}}">BACK</a></button>
+    <div class="assignment-container">
+        <h3>The Assignment Data</h3>
+        {% for i in a_data %}
+        <div class="assignment-item">
+            <div>
+                <strong>SUBJECT:</strong> {{ i[7] }}
+            </div>
+            <div>
+                <strong>Assignment Name:</strong> {{ i[2] }}
+            </div>
+            <div>
+                <strong>Date:</strong> {{ i[5] }}
+            </div>
+            <div>
+                <strong>Status:</strong> {{ i[4] }}
+            </div>
+            <div>
+                <strong>Marks:</strong> {{ i[6] }}
+            </div>
+            <div>
+
+                {% if   i[3] == None %}
+                <strong>upload assignment:</strong> 
+                <form action="{{url_for('uploadassignment',id1=i[0])}}" method="POST" enctype="multipart/form-data">
+                    <input type="file" name="file1">
+                    <button type="submit">Submit</button>
+                
+                {% else %}
+                <a href="{{ url_for('viewfile',id1=i[0]) }}">view</a>
+                &nbsp;&nbsp;&nbsp;
+                <strong>Update the assignment</strong>
+                 <form action="{{url_for('editfile',id1=i[0])}}" method="POST" enctype="multipart/form-data">
+                    <input type="file" name="file1">
+                    <button type="submit">Submit</button>
+
+                {% endif %}
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
